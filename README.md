@@ -7,35 +7,42 @@ Multimodal multiple-choice QA with **`HuggingFaceTB/SmolVLM-500M-Instruct`**, ef
 
 ---
 
-## Repository layout
+## What to submit (minimal)
+
+For course hand-in, the usual bundle is only:
+
+| Bundle item | Purpose |
+|-------------|---------|
+| **`adapter.zip`** | Trained PEFT adapter (`adapter_config.json`, `adapter_model.safetensors`, tokenizer/processor files). See [Course submission](#course-submission-adapter-weights-on-github). |
+| **`final_project.ipynb`** | Main code: training + inference → `submission.csv`. |
+| **`README.md`** | How to install deps, point `ADAPTER_DIR`, and rerun inference (this file). |
+
+That is enough for someone to load your weights and reproduce **`submission.csv`** without your full repo clone.
+
+**Nice to include (small, helps graders):** `requirements.txt` — keeps `pip install -r requirements.txt` aligned with what you used (PyTorch still installed separately; see **Environment & dependencies** below).
+
+---
+
+## Repository layout (full clone — optional extras)
+
+If you keep the whole GitHub project (development + report), the tree looks like this. Nothing below is required in the **minimal** bundle unless your instructor asks for the written report source.
 
 ```
 Deep-Learning-CS-GY-6953-ECE-GY-7123/
 ├── final_project.ipynb      # Single entry point: train + infer → submission.csv
-├── starter_notebook.ipynb
-├── requirements.txt         # Pip deps (install PyTorch separately; see below)
-├── README.md                # This file — canonical reproducibility doc
-├── report/
+├── README.md
+├── requirements.txt
+├── starter_notebook.ipynb   # Optional: exploration / starter prompts
+├── report/                  # Optional: LaTeX report + figures for the PDF write-up
 │   ├── report_main.tex
 │   ├── generate_figures.py
-│   └── figures/             # Generated PDFs/PNGs for the paper
-├── train.csv, val.csv, test.csv   # Optional local mirror of competition CSVs
+│   └── figures/
+├── train.csv, val.csv, test.csv   # Local/Kaggle copies of competition CSVs (not shipped in adapter.zip)
 ├── sample_submission.csv
-└── images/                  # When running locally: unzip competition images here
+└── images/                  # Local: unzip competition images here when not on Kaggle
 ```
 
-| Path | Role |
-|------|------|
-| `final_project.ipynb` | **Main pipeline**: data discovery → LoRA/DoRA training (optional) → inference → `submission.csv` |
-| `requirements.txt` | Python packages for **reproducible training/inference** (pin this file in submissions) |
-| `starter_notebook.ipynb` | Starter / exploration (prompt demo, optional LoRA notes) |
-| `train.csv`, `val.csv`, `test.csv` | Labels / IDs when running **locally** (mirror competition CSVs) |
-| `sample_submission.csv` | Required submission column template |
-| `images/` | Image folders referenced by `image_path` in CSVs (when data is unpacked locally) |
-
-On **Kaggle**, competition files usually appear under  
-`/kaggle/input/competitions/<dataset-name>/`  
-(or similar); the notebook **auto-detects** `train.csv` or use **`DATA_DIR_OVERRIDE`**.
+On **Kaggle**, competition files usually appear under `/kaggle/input/competitions/<dataset-name>/`; the notebook **auto-detects** `train.csv` or use **`DATA_DIR_OVERRIDE`**.
 
 ---
 
